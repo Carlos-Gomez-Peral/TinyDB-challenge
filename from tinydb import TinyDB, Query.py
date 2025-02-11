@@ -37,20 +37,30 @@ def change_Grade():
 
 def remove():
     removed = input("Enter student ID to be removed from database: ")
-    db.remove(User.ID == removed)
+    db.remove(User.ID == removed)    #Removes record from database where the User id is wanted
     print("Record of student with ID: ", removed,"has been removed from database")
+
+
+def bonus_challenge():
+    search = str(input("What grade are you counting? "))
+    i = 0
+    number_of_students = db.search(User.Grade == search)      #variable stores how many students have the wanted grade
+    i = len(number_of_students)                               #varibale i will store length (how many records) of previous variable 
+    print("Number of students with grade:", search,"are = ", i)
+
 
     
 
 
 while True:
-    menu = input(""" What would you like to do:
-                 1.  Add Student
+    menu = input(''' What would you like to do:
+                 1. Add Student
                  2. Show all students
                  3. Search students
                  4. Change grade
                  5. Remove record
-                 == """)
+                 6. Count how many students in grade category
+                 == ''')
     if menu == '1':
         add_student()
     elif menu == '2':
@@ -65,6 +75,8 @@ while True:
         change_Grade()
     elif menu == '5':
         remove()
+    elif menu == '6':
+        bonus_challenge()
 
     else:
         print("Not an option")
