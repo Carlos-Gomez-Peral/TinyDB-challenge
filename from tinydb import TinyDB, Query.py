@@ -1,7 +1,6 @@
-from tinydb import TinyDB, Query
-
-db = TinyDB('students.json')
-User = Query()
+from tinydb import TinyDB, Query     #imports database and libraries we are using (double check with Mr Henley this is right)!!!
+db = TinyDB('students.json')    #ask Mr Henley to explain
+User = Query()      # ask Mr Henley to explain
 
 db.insert({'ID': "001", 'Name':"Roberto", 'Age': 17, 'Grade': "A"})
 db.insert({'ID': "002", 'Name':"Carlos", 'Age': 17, 'Grade': "A*"})
@@ -12,19 +11,19 @@ def add_student():
     name = input("Enter name: ")
     age = float(input("Enter age: "))
     grade = str(input("Enter grade: "))
-    db.insert({'ID': id, "Name": name, "Age": age, "Grade": grade})
+    db.insert({'ID': id, "Name": name, "Age": age, "Grade": grade})    # Insert new student (record) into the database
 
 def search_student():
     student_search = input("Enter name of student: ")
-    student = db.search(User.Name == student_search)
+    student = db.search(User.Name == student_search)     #searches database for user which has wanted name and stores User's data under variable 'student'
     print(student)
 
 def search_grade():
     grade_search = input("Grade to search for: ")
-    gradestudents = db.search(User.Grade == grade_search)
+    gradestudents = db.search(User.Grade == grade_search)   #searches database for user with same name and stores User data into variable created
     print(gradestudents)
 
-def show_students():
+def show_students():  #not sue this does anything
     for name in db:
         print(name)
     
@@ -33,8 +32,15 @@ def change_Grade():
     new_grade = input("Enter new grade to be changed for: ")
 
     #Updating the grade in the database
-    db.update({'Grade': new_grade}, User.ID == changed)
+    db.update({'Grade': new_grade}, User.ID == changed)    #changes grade attribute of user with chosen ID
     print("Updated student ID", changed," to new grade: ", new_grade)
+
+def remove():
+    removed = input("Enter student ID to be removed from database: ")
+    db.remove(User.ID == removed)
+    print("Record of student with ID: ", removed,"has been removed from database")
+
+    
 
 
 while True:
@@ -43,6 +49,7 @@ while True:
                  2. Show all students
                  3. Search students
                  4. Change grade
+                 5. Remove record
                  == """)
     if menu == '1':
         add_student()
@@ -56,9 +63,9 @@ while True:
             search_grade()
     elif menu == '4':
         change_Grade()
+    elif menu == '5':
+        remove()
 
     else:
         print("Not an option")
     
-show_students()
-print(db)
