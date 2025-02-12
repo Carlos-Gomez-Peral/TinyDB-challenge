@@ -6,6 +6,8 @@ db.insert({'ID': "001", 'Name':"Roberto", 'Age': 17, 'Grade': "A"})
 db.insert({'ID': "002", 'Name':"Carlos", 'Age': 17, 'Grade': "A*"})
 db.insert({'ID': "003", 'Name':"Reece", 'Age': 16, 'Grade': "A*"})
 
+
+
 def add_student():
     id = str(input("Enter ID: "))
     name = input("Enter name: ")
@@ -48,18 +50,32 @@ def bonus_challenge():
     i = len(number_of_students)                               #varibale i will store length (how many records) of previous variable 
     print("Number of students with grade:", search,"are = ", i)
 
+#current area working on to set id as an integer of 4 digits
+def get_ID():
+    records = db.all
+    last_id = max(int(records('ID')) for record in records if 'ID' in record)
+    print(f"last id: {last_id}") 
+    return last_id
+
+def set_ID():
+    def get_ID() + 1:04d
+
+
+
 
     
 
-
-while True:
-    menu = input(''' What would you like to do:
-                 1. Add Student
-                 2. Show all students
-                 3. Search students
-                 4. Change grade
-                 5. Remove record
-                 6. Count how many students in grade category
+run = 'True'
+while run == 'True':
+    menu = input('''
+                  What would you like to do:
+                      1. Add Student
+                      2. Show all students
+                      3. Search students
+                      4. Change grade
+                      5. Remove record
+                      6. Count how many students in grade category
+                      7. Exit
                  == ''')
     if menu == '1':
         add_student()
@@ -77,7 +93,9 @@ while True:
         remove()
     elif menu == '6':
         bonus_challenge()
-
+    elif menu == '7':
+        print("Exited")
+        run = 'False'
     else:
         print("Not an option")
     
