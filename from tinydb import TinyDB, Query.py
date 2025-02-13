@@ -2,23 +2,29 @@ from tinydb import TinyDB, Query     #imports database and libraries we are usin
 db = TinyDB('students.json')    #ask Mr Henley to explain
 User = Query()      # ask Mr Henley to explain
 
-db.insert({'ID': "001", 'Name':"Roberto", 'Age': 17, 'Grade': "A"})
-db.insert({'ID': "002", 'Name':"Carlos", 'Age': 17, 'Grade': "A*"})
-db.insert({'ID': "003", 'Name':"Reece", 'Age': 16, 'Grade': "A*"})
+def insert_students():
+    db.insert({'ID': "00001", 'Name':"Roberto", 'Age': 17, 'Subject': "Accounting", 'Grade': "A"})
+    db.insert({'ID': "00002", 'Name':"Carlos", 'Age': 17, 'Subject': "Maths", 'Grade': "A*"})
+    db.insert({'ID': "00003", 'Name':"Reece", 'Age': 16, 'Subject': "Computer Sience", 'Grade': "A*"})
 
 
+def get_id():
+    students = db.all()
+    if students:
+        max_id = max(int(student['ID']) for student in students)
+        new_id = f"{max_id + 1:05d}"
+    else:
+        new_id = '00001'
+    return new_id
 
 def add_student():
-    id = str(input("Enter ID: "))
+    id = get_id()
     name = input("Enter name: ")
     age = float(input("Enter age: "))
     grade = str(input("Enter grade: "))
-    db.insert({'ID': id, "Name": name, "Age": age, "Grade": grade})    # Insert new student (record) into the database
-
-def search_student():
-    student_search = input("Enter name of student: ")
-    student = db.search(User.Name == student_search)     #searches database for user which has wanted name and stores User's data under variable 'student'
-    print(student)
+    subject = input("Enter subject: ")
+    db.insert({'ID': id, "Name": name, "Age": age, "Subject": subject, "Grade": grade})    # Insert new student (record) into the database
+    
 
 def search_grade():
     grade_search = input("Grade to search for: ")
@@ -26,12 +32,20 @@ def search_grade():
     print(gradestudents)
 
 def show_students():  #not sue this does anything
-    for name in db:
-        print(name)
+    for User in db.all():
+        print(User)
     
-def change_Grade():
+def change_details():
     changed = str(input("Enter student's ID of grade to be changed: "))
+    details = input('''Which details will you be changing? 
+                    1. Grade
+                    2. Name
+                    3. Subject
+                    4. Age''')
     new_grade = input("Enter new grade to be changed for: ")
+    new_name = input("Enter correct name to be changed for: ")
+    new_subject = input("Enter correct subject to be changed for: ")
+    new_age = input("Enter correct age to be changed for: ")
 
     #Updating the grade in the database
     db.update({'Grade': new_grade}, User.ID == changed)    #changes grade attribute of user with chosen ID
@@ -50,20 +64,16 @@ def bonus_challenge():
     i = len(number_of_students)                               #varibale i will store length (how many records) of previous variable 
     print("Number of students with grade:", search,"are = ", i)
 
-#current area working on to set id as an integer of 4 digits
-def get_ID():
-    records = db.all
-    last_id = max(int(records('ID')) for record in records if 'ID' in record)
-    print(f"last id: {last_id}") 
-    return last_id
 
-def set_ID():
-    def get_ID() + 1:04d
-
-
-
-
+def set_id():
+    records = db.all()            #current area working on to set id as an integer of 4 digits
     
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+
+insert = input("Would you like to insert students: ")
+if insert == 'yes':
+    insert_students()
+
 
 run = 'True'
 while run == 'True':
@@ -72,7 +82,7 @@ while run == 'True':
                       1. Add Student
                       2. Show all students
                       3. Search students
-                      4. Change grade
+                      4. Change student details
                       5. Remove record
                       6. Count how many students in grade category
                       7. Exit
@@ -82,11 +92,7 @@ while run == 'True':
     elif menu == '2':
         show_students()
     elif menu == '3':
-        search = input("Are you searching for name or grade?")
-        if search == 'name':
-            search_student()
-        if search == 'grade':
-            search_grade()
+        search_grade()
     elif menu == '4':
         change_Grade()
     elif menu == '5':
