@@ -31,23 +31,33 @@ def search_grade():
     gradestudents = db.search(User.Grade == grade_search)   #searches database for user with same name and stores User data into variable created
     print(gradestudents)
 
-def show_students():  #not sue this does anything
+def show_students():  
     for User in db.all():
         print(User)
     
 def change_details():
-    changed = str(input("Enter student's ID of grade to be changed: "))
-    details = input('''Which details will you be changing? 
+    changed = str(input('''Which details will you be changing? 
                     1. Grade
                     2. Name
                     3. Subject
-                    4. Age''')
-    new_grade = input("Enter new grade to be changed for: ")
+                    4. Age'''))
+    if changed == 'Grade':
+        new_grade = input("Enter new grade to be changed for: ")
+        db.update({'Grade': new_grade}, User.ID == changed)    #changes grade attribute of user with chosen ID
+        print("Updated student ID", changed," to new grade: ", new_grade)
+    elif changed == 'Name'
     new_name = input("Enter correct name to be changed for: ")
     new_subject = input("Enter correct subject to be changed for: ")
     new_age = input("Enter correct age to be changed for: ")
 
     #Updating the grade in the database
+    
+    db.update({'Grade': new_grade}, User.ID == changed)    #changes grade attribute of user with chosen ID
+    print("Updated student ID", changed," to new grade: ", new_grade)
+    db.update({'Grade': new_grade}, User.ID == changed)    #changes grade attribute of user with chosen ID
+    print("Updated student ID", changed," to new grade: ", new_grade)
+    db.update({'Grade': new_grade}, User.ID == changed)    #changes grade attribute of user with chosen ID
+    print("Updated student ID", changed," to new grade: ", new_grade)
     db.update({'Grade': new_grade}, User.ID == changed)    #changes grade attribute of user with chosen ID
     print("Updated student ID", changed," to new grade: ", new_grade)
 
@@ -67,8 +77,7 @@ def bonus_challenge():
 
 def set_id():
     records = db.all()            #current area working on to set id as an integer of 4 digits
-    
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 
 insert = input("Would you like to insert students: ")
 if insert == 'yes':
@@ -105,3 +114,5 @@ while run == 'True':
     else:
         print("Not an option")
     
+    
+
