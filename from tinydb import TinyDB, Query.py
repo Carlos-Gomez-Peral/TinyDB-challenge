@@ -27,21 +27,31 @@ def add_student():
     
 
 def search_grade():
-    grade_search = input("Grade to search for: ")
-    gradestudents = db.search(User.Grade == grade_search)   #searches database for user with same name and stores User data into variable created
-    print(gradestudents)
+    name_search = input("Name to search for: ")
+    name_students = db.search(User.Name == name_search)
+    if name_students:
+        print(name_students)
+    else:
+        print("No matches found")
 
-def show_students():  
-    for User in db.all():
-        print(User)
+def show_students():   
+    records = db.all()   #currently having problems showing all records 
+    if records:
+        for record in records:
+            print(record)
+    else:
+        print("No records found")
     
+
+
 def change_details():
-    selected = input("Enter ID of user with incorrect details")
+    selected = input("Enter ID of user with incorrect details: ")
     changed = str(input('''Which details will you be changing? 
                     - Grade
                     - Name
                     - Subject
-                    - Age'''))
+                    - Age
+                === '''))
     if changed == 'Grade':
         new_grade = input("Enter new grade to be changed for: ")
         db.update({'Grade': new_grade}, User.ID == selected)    #changes grade attribute of user with chosen ID
@@ -58,6 +68,8 @@ def change_details():
         new_age = float(input("Enter correct age"))
         db.update({'Age': new_age}, User.ID == selected)
         print("Updated student", changed," to correct age: ", new_age)
+    else:
+        print("No matches found for this ID")
     
 
     #Updating the grade in the database
@@ -65,8 +77,12 @@ def change_details():
 
 def remove():
     removed = input("Enter student ID to be removed from database: ")
-    db.remove(User.ID == removed)    #Removes record from database where the User id is wanted
-    print("Record of student with ID: ", removed,"has been removed from database")
+    matches = db.search(User.ID == removed)
+    if matches:
+        db.remove(User.ID == removed)    #Removes record from database where the User id is wanted
+        print("Record of student with ID: ", removed,"has been removed from database")
+    else:
+        print("No matches found")
 
 
 def bonus_challenge():
@@ -76,9 +92,6 @@ def bonus_challenge():
     i = len(number_of_students)                               #varibale i will store length (how many records) of previous variable 
     print("Number of students with grade:", search,"are = ", i)
 
-
-def set_id():
-    records = db.all()            #current area working on to set id as an integer of 4 digits
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 
 insert = input("Would you like to insert students: ")
