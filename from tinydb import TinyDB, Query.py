@@ -36,30 +36,32 @@ def show_students():
         print(User)
     
 def change_details():
+    selected = input("Enter ID of user with incorrect details")
     changed = str(input('''Which details will you be changing? 
-                    1. Grade
-                    2. Name
-                    3. Subject
-                    4. Age'''))
+                    - Grade
+                    - Name
+                    - Subject
+                    - Age'''))
     if changed == 'Grade':
         new_grade = input("Enter new grade to be changed for: ")
-        db.update({'Grade': new_grade}, User.ID == changed)    #changes grade attribute of user with chosen ID
-        print("Updated student ID", changed," to new grade: ", new_grade)
-    elif changed == 'Name'
-    new_name = input("Enter correct name to be changed for: ")
-    new_subject = input("Enter correct subject to be changed for: ")
-    new_age = input("Enter correct age to be changed for: ")
+        db.update({'Grade': new_grade}, User.ID == selected)    #changes grade attribute of user with chosen ID
+        print("Updated student", changed," to correct grade: ", new_grade)
+    elif changed == 'Name':
+        new_name = input("Enter coorrect name: ")
+        db.update({'Name': new_name}, User.ID == selected)
+        print("Updated student ", changed," to correct name: ", new_name)
+    elif changed == 'Subject':
+        new_subject = input("Enter new subject")
+        db.update({'Subject': new_subject}, User.ID == selected)
+        print("Updated student ", changed," to correct subject: ", new_subject)
+    elif changed == 'Age':
+        new_age = float(input("Enter correct age"))
+        db.update({'Age': new_age}, User.ID == selected)
+        print("Updated student", changed," to correct age: ", new_age)
+    
 
     #Updating the grade in the database
     
-    db.update({'Grade': new_grade}, User.ID == changed)    #changes grade attribute of user with chosen ID
-    print("Updated student ID", changed," to new grade: ", new_grade)
-    db.update({'Grade': new_grade}, User.ID == changed)    #changes grade attribute of user with chosen ID
-    print("Updated student ID", changed," to new grade: ", new_grade)
-    db.update({'Grade': new_grade}, User.ID == changed)    #changes grade attribute of user with chosen ID
-    print("Updated student ID", changed," to new grade: ", new_grade)
-    db.update({'Grade': new_grade}, User.ID == changed)    #changes grade attribute of user with chosen ID
-    print("Updated student ID", changed," to new grade: ", new_grade)
 
 def remove():
     removed = input("Enter student ID to be removed from database: ")
@@ -103,7 +105,7 @@ while run == 'True':
     elif menu == '3':
         search_grade()
     elif menu == '4':
-        change_Grade()
+        change_details()
     elif menu == '5':
         remove()
     elif menu == '6':
